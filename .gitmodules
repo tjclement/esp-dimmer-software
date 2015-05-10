@@ -1,0 +1,3 @@
+[submodule "esp-common"]
+	path = esp-common
+	url = git@github.com:tjclement/esp-common.git
