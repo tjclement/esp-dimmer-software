@@ -2,6 +2,7 @@
 
 import sys
 import socket
+import ntpath
 
 PORT = 23
 
@@ -15,6 +16,9 @@ def transceive(socket, ip, data):
 def send_file(ip, filename):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     with open(filename) as f:
+        # Strip paths from the filename, if present
+        filename = ntpath.basename(filename)
+
         lines = [line.strip('\n') for line in f.readlines()]
 
         transceive(s, ip, 'file.remove("%s")' % filename)
@@ -26,6 +30,9 @@ def send_file(ip, filename):
             transceive(s, ip, 'w([[ %s ]])' % line)
 
         transceive(s, ip, 'file.close("%s")' % filename)
+
+        if filename.endswith('.lua'):
+            transceive(s, ip, 'node.compile("%s")' % filename)
 
 
 
