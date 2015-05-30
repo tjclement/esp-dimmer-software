@@ -1,9 +1,9 @@
 local pwmDimmer = {}
 
+pwmDimmer.targetDuties = {}
 pwmDimmer.currentDuties = {}
 
 function pwmDimmer.fadeTo (pin, newDuty)
-    local step
     local currentDuty = pwmDimmer.currentDuties[pin] 
 
     if not pin or not newDuty then
@@ -11,19 +11,29 @@ function pwmDimmer.fadeTo (pin, newDuty)
     end
 
     if currentDuty == nil then
-        pwm.setup(pin, 1000, 0)
+        pwm.setup(pin, 200, 0)
         currentDuty = 0
-    end
-    
-    if newDuty > currentDuty then step = 1 else step = -1 end
-    
-    for i=currentDuty, newDuty, step do
-        pwm.setduty(pin, i)
-        tmr.delay(1000)
-        tmr.wdclr() -- Prevent watchdog system restarts
+        pwmDimmer.currentDuties[pin] = currentDuty
     end
 
-    pwmDimmer.currentDuties[pin] = newDuty
+    pwmDimmer.targetDuties[pin] = newDuty
+    
+    tmr.alarm(5, 1, 1, function()
+        local step
+        local target = pwmDimmer.targetDuties[pin]
+        local currentDuty = pwmDimmer.currentDuties[pin]
+
+        if target == currentDuty then
+            tmr.stop(5)
+            return
+        end
+
+        if target > currentDuty then step = 1 else step = -1 end
+
+        pwmDimmer.currentDuties[pin] = pwmDimmer.currentDuties[pin] + step
+
+        pwm.setduty(pin, pwmDimmer.currentDuties[pin])
+    end)
 end
 
 function pwmDimmer.setTo (pin, newDuty)

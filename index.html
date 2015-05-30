@@ -7,28 +7,31 @@
 <body>
 
 <label for="duty">Brightness: </label>
-<input id="duty" type="range" min="0" max="1023" oninput="updatePwm(this.value)" onchange="updatePwm(this.value)">
+<input id="duty" type="range" min="0" max="1023" onchange="updatePwm(this.value)">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
     var lastUpdated = 1;
+    $.ajaxSetup({ timeout: 500 });
 
     function updatePwm(newDuty) {
         if(lastUpdated /*&& Date.now() - lastUpdated > 500*/){
             console.log('Setting brightness to ', newDuty);
             $.get('/', {
-                setTo: newDuty
-            },
-            fetchStatus);
+                fadeTo: newDuty
+            });
             lastUpdated = Date.now()
         }
     }
 
     function fetchStatus() {
         $.get('/getPwmDuty', {}, function(data){
-            $('#duty').value(data);
+            $('#duty').val(data);
         });
     }
+
+    setInterval(fetchStatus, 10000);
+    fetchStatus();
 </script>
 </body>
 </html>
