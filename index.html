@@ -2,20 +2,41 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="viewport"
+          content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <title></title>
+    <style>
+        .slider {
+            width: 220px;
+            height: 26px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -13px 0 0 -110px;
+        }
+    </style>
 </head>
 <body>
 
-<label for="duty">Brightness: </label>
-<input id="duty" type="range" min="0" max="1023" onchange="updatePwm(this.value)">
+<div class="slider">
+    <label for="duty">Brightness: </label>
+    <input id="duty" type="range" min="0" max="1023"
+           onchange="updatePwm(this.value)">
+</div>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript"
+        src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
     var lastUpdated = 1;
     $.ajaxSetup({ timeout: 500 });
 
     function updatePwm(newDuty) {
-        if(lastUpdated /*&& Date.now() - lastUpdated > 500*/){
+        if (lastUpdated /*&& Date.now() - lastUpdated > 500*/) {
             console.log('Setting brightness to ', newDuty);
             $.get('/', {
                 fadeTo: newDuty
@@ -25,7 +46,7 @@
     }
 
     function fetchStatus() {
-        $.get('/getPwmDuty', {}, function(data){
+        $.get('/getPwmDuty', {}, function (data) {
             $('#duty').val(data);
         });
     }
