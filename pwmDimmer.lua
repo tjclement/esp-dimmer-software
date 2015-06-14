@@ -11,7 +11,7 @@ function pwmDimmer.fadeTo (pin, newDuty)
     end
 
     if currentDuty == nil then
-        pwm.setup(pin, 200, 0)
+        pwm.setup(pin, 500, 0)
         currentDuty = 0
         pwmDimmer.currentDuties[pin] = currentDuty
     end
