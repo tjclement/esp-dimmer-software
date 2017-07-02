@@ -20,7 +20,7 @@ $ chmod +x sendfile.py
 
 6. Open wifiSettings.lua with a text editor and enter your wifi credentials and network configuration - Save!
 
-7. Run esptool.py to upload the file
+7. Run sendfile.py to upload the file
 ```
-$ ./esptool.py 192.168.4.1 wifiSettings.lua
+$ ./sendfile.py 192.168.4.1 wifiSettings.lua
 ```
