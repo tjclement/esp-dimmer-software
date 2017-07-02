@@ -2,7 +2,6 @@
 Custom software for a super tiny WiFi LED dimmer module based on the ESP8266
 
 After flashing the initial firmware via serial connection, its possible to upload new scripts via wifi. 
-
 Follow these instructions to change the WiFi AP:
 
 1. Power Up!
@@ -21,7 +20,7 @@ $ chmod +x sendfile.py
 
 6. Open wifiSettings.lua with a text editor and enter your wifi credentials and network configuration - Save!
 
-7. Run ./esptool.py wifiSettings.lua to upload the file
+7. Run esptool.py to upload the file
 ```
 $ ./esptool.py 192.168.4.1 wifiSettings.lua
 ```
