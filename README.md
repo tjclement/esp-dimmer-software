@@ -17,7 +17,7 @@ $ git clone https://github.com/tjclement/esp-dimmer-software.git
 $ wget https://github.com/tjclement/esp-common/raw/255d30d573bb580cbd031145aebf4949e363261f/sendfile.py
 $ chmod +x sendfile.py
 ```
-4. Connect to wifi called "ESP-xx:xx:xx:xx" with the default password. DHCP needs to be enabled!
+4. Connect to wifi called "ESP-xx:xx:xx:xx" with the default password "MyPassword". DHCP needs to be enabled!
 
 6. Open wifiSettings.lua with a text editor and enter your wifi credentials and network configuration - Save!
 
