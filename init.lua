@@ -1,5 +1,7 @@
+wifiSettings = require("wifiSettings")
+
 autoWifi  = require("autoWifi")
-autoWifi.setup("MyHomeSSID", "MyPassword", {ip="192.168.0.230", netmask="255.255.255.0", gateway="192.168.0.1"})
+autoWifi.setup(wifiSettings.ssid, wifiSettings.key, {ip=wifiSettings.ip, netmask=wifiSettings.netmask, gateway=wifiSettings.gateway)
 
 updateServer = require("updateServer")
 updateServer.start()
